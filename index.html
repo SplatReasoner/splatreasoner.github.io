@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SplatReasoner: Enhancing Embodied Reasoning and Grounding by Novel View Synthesis">
+  <meta name="keywords" content="Embodied Reasoning, 3D Grounding, Novel View Synthesis">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SplatReasoner: Enhancing Embodied Reasoning and Grounding by Novel View Synthesis</title>
+
+  <!-- fontawesome for icons -->
+  <script src="https://kit.fontawesome.com/b6f2d55583.js" crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-J05L2ZDDEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-J05L2ZDDEC');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/fontawesome.all.min.css"> -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+<!--  <link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script defer src="./static/js/fontawesome.all.min.js"></script> -->
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">SplatReasoner: Enhancing Embodied Reasoning and Grounding by Novel View Synthesis</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ug-kim.github.io">Kim Yu-Ji</a><sup>1</sup></span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/dahye-lee/%ED%99%88">Dahye Lee</a><sup>2</sup></span>
+            <span class="author-block">
+              <a href="https://kim-junseong.github.io/">Kim Jun-Seong</a><sup>1</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/namhyeonwoo/">Nam Hyeon-Woo</a><sup>1</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://kim-geonu.github.io/">GeonU Kim</a><sup>1</sup>
+            </span>
+            <br>
+            <span class="author-block">
+                Yongjin Kwon<sup>3</sup>
+              </span>
+            <span class="author-block">
+                <a href="https://vllab.ee.ntu.edu.tw/ycwang.html">Yu-Chiang Frank Wang</a><sup>4</sup>
+            </span>
+            <span class="author-block">
+                <a href="https://jaesung-choe.github.io/">Jaesung Choe</a><sup>4</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://ami.kaist.ac.kr/members/tae-hyun-oh">Tae-Hyun Oh</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="publication-authors">
+            <span class="author-block"><sup>1</sup>POSTECH</span>
+            <span class="author-block"><sup>2</sup>KAIST</span>
+            <span class="author-block"><sup>3</sup>ETRI</span>
+            <span class="author-block"><sup>4</sup>NVIDIA</span>
+            <br>
+          </div>
+          <div class="is-size-5 column has-text-centered">
+            <span class="author-block conference-color">ECCV 2026</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.bmvc2021-virtualconference.com/assets/papers/0926.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (Coming Soon)</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa-brands fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                </a>
+              </span>
+
+              <!-- Data Link. -->
+              <!-- <span class="link-block">
+                <a href="https://postechackr-my.sharepoint.com/:f:/g/personal/gucka28_postech_ac_kr/EiM6SNSIJhRPl908z3zGTRoBKTBLMVA-flpTwnXDs70KgQ?e=4K2Tq9"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa-solid fa-download"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span> -->
+
+              <!-- POSTER Link. -->
+              <!-- <span class="link-block">
+                <a href="https://drive.google.com/file/d/1QBZdAz8e9vjHkjsuCQbHZZvcSmRH4p5U/view?usp=sharing"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa-solid fa-image"></i>
+                  </span>
+                  <span>Poster</span>
+                </a>
+              </span> -->
+
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.bmvc2021-virtualconference.com/conference/papers/paper_0926.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+<!--              &lt;!&ndash; Code Link. &ndash;&gt;-->
+<!--              <span class="link-block">-->
+<!--                <a href="https://github.com/google/nerfies"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fab fa-github"></i>-->
+<!--                  </span>-->
+<!--                  <span>Code</span>-->
+<!--                  </a>-->
+<!--              </span>-->
+<!--              &lt;!&ndash; Dataset Link. &ndash;&gt;-->
+<!--              <span class="link-block">-->
+<!--                <a href="https://github.com/google/nerfies/releases/tag/0.1"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="far fa-images"></i>-->
+<!--                  </span>-->
+<!--                  <span>Data</span>-->
+<!--                  </a>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="image-container">
+            <img src="./images/teaser.jpg">
+        </div>
+      </div>
+      <h2 class="subtitle">
+        <strong>SplatReaonser</strong> aims to enhance embodied reasoning and 3D visual grounding by utilizing novel-view synthesis to improve the 3D scene reasoning capabilities of Vision-Language Models (VLMs).
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+            <p>
+              While recent RGB-D structured memories provide a foundation for scene and spatial understanding, they are inherently constrained by the fixed viewpoints. 
+              These constraints lead to occlusions and restricted fields of view, highlighting the necessity of novel-view reasoning to achieve a more comprehensive scene understanding. 
+              We present SplatReasoner, an enhanced embodied reasoning and grounding framework that integrates 3D Gaussian Splatting (3DGS) with Vision-Language Models (VLMs).
+              SplatReasoner first identifies the most relevant pre-captured views for a user query, and subsequently adjusts them into novel viewpoints using 3DGS-based view synthesis. 
+              This enables VLMs to better align visual information, facilitating their reasoning process. To facilitate 3D spatial understanding, we utilize language-embedded 3DGS for visual grounding.
+              While this approach has shown promise in open-vocabulary tasks, its efficacy is bounded to simple categorical queries and struggles to interpret complex, compositional language. 
+              By interacting with our enhanced reasoning outputs, we successfully perform 3D grounding by handling sophisticated linguistic queries. 
+              Experiments show that SplatReasoner outperforms in OpenEQA and ScanRefer benchmarks for embodied reasoning and 3D grounding, respectively, 
+              demonstrating the effectiveness of combining VLM-based reasoning with 3DGS for 3D scene understanding.
+            </p>
+        </div>
+      </div>
+    </div>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Overview</h2>
+          <div class="content has-text-justified">
+            <img src="images/overview.jpg">
+            <p>
+              In the <strong>initial view selection</strong>, the query is first rephrased into relevant semantic categories \(\mathcal{C}^{evidence}\) by a LLM, activated 3D Gaussians associated with those categories are grouped into distinct spatial clusters, and we select the optimal initial views that best cover each cluster from the initial input views.
+              In the <strong>final view selection</strong>, multiple novel views around selected views are synthesized by rendering from the reconstructed 3DGS and are passed to the VLM for accurate reasoning; thereby 
+              the most informative views are identified and result in 
+              the final answer to the query.
+            </p>
+          </div>
+        </div>
+      </div>
+</section>
+<!-- 
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Embodied Question-Answering (EQA) Results</h2>
+          <div class="content has-text-justified">
+            <div class="image-container">
+                <img src="./images/eqa_quan.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">3D Referring Segmentation Results</h2>
+          <div class="content has-text-justified">
+            <div class="image-container">
+                <img src="./images/localization_qual.jpg">
+            </div>
+          </div>
+        </div>
+      </div> -->
+  <!-- </section> -->
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">PBR Editing</h2>
+        <div class="content has-text-justified">
+
+          <div class="video-container">
+            <video autoplay controls muted loop>
+              <source src="./video/PBR_relighting.mp4" type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">PBR Editing #2 - Material Editing</h2>
+          <div class="content has-text-justified">
+  
+            <div class="video-container">
+              <video autoplay controls muted loop>
+                <source src="./video/PBR_mat_edit.mp4" type="video/mp4">
+              </video>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+  </section> -->
+
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @inproceedings{yu2026splatreasoner,
+        title={SplatReasoner: Enhancing Embodied Reasoning and Grounding by Novel View Synthesis},
+        author={Yu-Ji, Kim and Lee, Dahye and Jun-Seong, Kim and Hyeon-Woo, Nam and Kim, GeonU and Kwon, Yongjin and Wang, Yu-Chiang Frank and Choe, Jaesung and Oh, Tae-Hyun},
+        booktitle={ECCV},
+        year={2026}
+    }
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <h2 class="title is-3">Acknowledgement</h2>
+          <!-- <p>
+            We thank the members of AMILab and NVIDIA collaboraters.
+          </p> -->
+
+            <p>
+            We thank the members of AMI Lab and NVIDIA Research Taiwan for their helpful discussions and proofreading.
+            </p>
+            <p>
+            This work was supported by Institute of Information & Communications Technology Planning & Evaluation (IITP) grant funded by the Korea government (MSIT) 
+            (No. RS-2020-II200004, Development of Previsional Intelligence based on Long-term Visual Memory Network (25%), No. RS-2026-25518317, 
+            Development of AI memory mechanism that reflects human cognitive principles (25%), No.RS-2019-II191906, 
+            Artificial Intelligence Graduate School Program(POSTECH) (25%)), 
+            the National Research Foundation of Korea(NRF) grant funded by the Korea government(MSIT) (No. RS-2024-00453301 (25%)) 
+            and the InnoCORE program of the Ministry of Science and ICT(N10250156).
+            </p>
+            <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to the <a href="https://github.com/nerfies/nerfies.github.io">original page</a> in the footer.
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
