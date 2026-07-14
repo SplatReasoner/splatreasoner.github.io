@@ -65,13 +65,17 @@ $(document).ready(function() {
         player.currentTime = player.duration / 100 * this.value;
       })
     }, false);*/
-    preloadInterpolationImages();
+    var interpolationSlider = document.getElementById('interpolation-slider');
+    var interpolationImageWrapper = document.getElementById('interpolation-image-wrapper');
+    if (interpolationSlider && interpolationImageWrapper) {
+      preloadInterpolationImages();
 
-    $('#interpolation-slider').on('input', function(event) {
-      setInterpolationImage(this.value);
-    });
-    setInterpolationImage(0);
-    $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
+      $('#interpolation-slider').on('input', function() {
+        setInterpolationImage(this.value);
+      });
+      setInterpolationImage(0);
+      $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
+    }
 
     bulmaSlider.attach();
 
