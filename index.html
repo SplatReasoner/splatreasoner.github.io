@@ -124,12 +124,12 @@
                 </a>
               </span> -->
               <span class="link-block">
-                <a href=""
+                <a href="https://arxiv.org/abs/2601.13132"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
-                  <span>arXiv (Coming Soon)</span>
+                  <span>arXiv</span>
                 </a>
               </span>
 
@@ -226,15 +226,11 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
             <p>
-              While recent RGB-D structured memories provide a foundation for scene and spatial understanding, they are inherently constrained by the fixed viewpoints. 
-              These constraints lead to occlusions and restricted fields of view, highlighting the necessity of novel-view reasoning to achieve a more comprehensive scene understanding. 
-              We present SplatReasoner, an enhanced embodied reasoning and grounding framework that integrates 3D Gaussian Splatting (3DGS) with Vision-Language Models (VLMs).
-              SplatReasoner first identifies the most relevant pre-captured views for a user query, and subsequently adjusts them into novel viewpoints using 3DGS-based view synthesis. 
-              This enables VLMs to better align visual information, facilitating their reasoning process. To facilitate 3D spatial understanding, we utilize language-embedded 3DGS for visual grounding.
-              While this approach has shown promise in open-vocabulary tasks, its efficacy is bounded to simple categorical queries and struggles to interpret complex, compositional language. 
-              By interacting with our enhanced reasoning outputs, we successfully perform 3D grounding by handling sophisticated linguistic queries. 
-              Experiments show that SplatReasoner outperforms in OpenEQA and ScanRefer benchmarks for embodied reasoning and 3D grounding, respectively, 
-              demonstrating the effectiveness of combining VLM-based reasoning with 3DGS for 3D scene understanding.
+              Vision-Language Models (VLMs) have demonstrated strong reasoning capabilities over images and videos, yet their application to embodied scene understanding often constrained by the fixed viewpoints stored in episodic RGB-D memories.
+              These observations may fail to capture query-relevant evidence due to occlusions, object truncation, restricted fields of view, or suboptimal view composition.
+              We present \nickname, a framework that introduces novel view synthesis into the VLM reasoning process by leveraging 3D Gaussian Splatting (3DGS).
+              Given a user query about a 3D scene, \nickname retrieves relevant observations and synthesizes query-conditioned viewpoints that reveal the visual evidence needed to answer the query and ground the referred entities in 3D.
+              Experiments show that query-conditioned novel view synthesis improves both embodied reasoning and 3D grounding over fixed-view memory and language-embedded 3DGS baselines.
             </p>
         </div>
       </div>
