@@ -31,7 +31,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-<!--  <link rel="icon" href="./static/images/favicon.svg">-->
+  <link rel="icon" type="image/png" href="./images/binoculars.png">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- <script defer src="./static/js/fontawesome.all.min.js"></script> -->
@@ -59,7 +59,6 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      </a>
     </div>
 
   </div>
@@ -207,14 +206,13 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
         <div class="image-container">
-            <img src="./images/teaser.jpg">
+            <img src="./images/teaser.jpg" alt="Overview of the SplatReasoner framework">
         </div>
       </div>
       <h2 class="subtitle">
-        <strong>SplatReaonser</strong> aims to enhance embodied reasoning and 3D visual grounding by utilizing novel-view synthesis to improve the 3D scene reasoning capabilities of Vision-Language Models (VLMs).
+        <strong>SplatReasoner</strong> aims to enhance embodied reasoning and 3D visual grounding by utilizing novel-view synthesis to improve the 3D scene reasoning capabilities of Vision-Language Models (VLMs).
       </h2>
     </div>
-  </div>
 </section>
 
 
@@ -226,105 +224,306 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
             <p>
-              Vision-Language Models (VLMs) have demonstrated strong reasoning capabilities over images and videos, yet their application to embodied scene understanding often constrained by the fixed viewpoints stored in episodic RGB-D memories.
+              Vision-Language Models (VLMs) have demonstrated strong reasoning capabilities over images and videos, yet their application to embodied scene understanding is often constrained by the fixed viewpoints stored in episodic RGB-D memories.
               These observations may fail to capture query-relevant evidence due to occlusions, object truncation, restricted fields of view, or suboptimal view composition.
-              We present \nickname, a framework that introduces novel view synthesis into the VLM reasoning process by leveraging 3D Gaussian Splatting (3DGS).
-              Given a user query about a 3D scene, \nickname retrieves relevant observations and synthesizes query-conditioned viewpoints that reveal the visual evidence needed to answer the query and ground the referred entities in 3D.
+              We present SplatReasoner, a framework that introduces novel view synthesis into the VLM reasoning process by leveraging 3D Gaussian Splatting (3DGS).
+              Given a user query about a 3D scene, SplatReasoner retrieves relevant observations and synthesizes query-conditioned viewpoints that reveal the visual evidence needed to answer the query and ground the referred entities in 3D.
               Experiments show that query-conditioned novel view synthesis improves both embodied reasoning and 3D grounding over fixed-view memory and language-embedded 3DGS baselines.
             </p>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
+<section class="section">
+  <div class="container is-max-desktop">
       <!-- Abstract. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-full">
           <h2 class="title is-3">Overview</h2>
           <div class="content has-text-justified">
-            <img src="images/overview.jpg">
+            <img src="images/overview.jpg" alt="Overview of the SplatReasoner view selection pipeline">
             <p>
-              In the <strong>initial view selection</strong>, the query is first rephrased into relevant semantic categories \(\mathcal{C}^{evidence}\) by a LLM, activated 3D Gaussians associated with those categories are grouped into distinct spatial clusters, and we select the optimal initial views that best cover each cluster from the initial input views.
-              In the <strong>final view selection</strong>, multiple novel views around selected views are synthesized by rendering from the reconstructed 3DGS and are passed to the VLM for accurate reasoning; thereby 
-              the most informative views are identified and result in 
-              the final answer to the query.
+              Given \(N\) pre-captured views, we sample \(L'\) images to perform embodied tasks. First, we select \(L\) initial views from \(N\) input views through initial view
+              selection (\(N \gg L\)). Then, we augment each initial view with \(V\) novel views. Finally, we proceed with the final view selection with VLMs to find the most
+              informative views to answer the query.
             </p>
           </div>
         </div>
       </div>
+  </div>
 </section>
-<!-- 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <h2 class="title is-3">Embodied Question-Answering (EQA) Results</h2>
-          <div class="content has-text-justified">
-            <div class="image-container">
-                <img src="./images/eqa_quan.jpg">
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <h2 class="title is-3">3D Referring Segmentation Results</h2>
-          <div class="content has-text-justified">
-            <div class="image-container">
-                <img src="./images/localization_qual.jpg">
-            </div>
-          </div>
-        </div>
-      </div> -->
-  <!-- </section> -->
 
-<!-- <section class="section">
+
+<section class="section">
   <div class="container is-max-desktop">
-
+    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">PBR Editing</h2>
+      <div class="column is-full">
+        <h2 class="title is-3">Initial View Selection <span class="title-note">in Language-embedded 3DGS</span></h2>
         <div class="content has-text-justified">
-
-          <div class="video-container">
-            <video autoplay controls muted loop>
-              <source src="./video/PBR_relighting.mp4" type="video/mp4">
-            </video>
-          </div>
-
+          <img src="images/initial_view.jpg" alt="Initial view selection with language-embedded 3D Gaussian Splatting">
+          <p>
+            First, we identify the activated Gaussians \(\mathcal{G}^{\mathrm{act}}\) using a set of evidence categories \(\mathcal{C}^{\mathrm{evidence}}\) extracted from the query \(\mathcal{Q}\). 
+            Next, these activated Gaussians are grouped into clusters \(\{\mathcal{G}^{\mathrm{cluster}}_l\}_{l=1}^{L}\) that serve as instance-level candidates.
+            Finally, the initial viewpoints are determined by maximizing the visibility score.
+          </p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
 
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">PBR Editing #2 - Material Editing</h2>
-          <div class="content has-text-justified">
-  
-            <div class="video-container">
-              <video autoplay controls muted loop>
-                <source src="./video/PBR_mat_edit.mp4" type="video/mp4">
-              </video>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Final View Selection <span class="title-note">with Novel View Synthesis</span></h2>
+        <div class="content has-text-justified">
+          <img src="images/final_view.jpg" alt="Final view selection with novel view synthesis">
+          <p>
+            For each initial view, we synthesize novel views and employ a VLM-as-Judge to select the most informative viewpoints from both the initial
+            and novel view candidates. 
+            To ensure that the view selected by the VLM-as-Judge provides richer information than the initial one, we conduct a verification stage.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">EM-EQA: <span class="title-note">Episodic Memory Embodied Question Answering</span></h2>
+        <div class="content has-text-justified">
+          <figure class="benchmark-chart">
+            <figcaption class="benchmark-chart__topbar">
+              <div>
+                <span class="benchmark-chart__title">LLM-Match <span aria-hidden="true">↑</span></span>
+                <span class="benchmark-chart__subtitle">Higher is better</span>
+              </div>
+              <div class="benchmark-chart__legend" aria-label="Chart legend">
+                <span><i class="benchmark-legend benchmark-legend--closed"></i>Closed Model (GPT-4o)</span>
+                <span><i class="benchmark-legend benchmark-legend--open"></i>Open Model (Qwen3-VL 8B)</span>
+              </div>
+            </figcaption>
+
+            <div class="benchmark-chart__columns" aria-hidden="true">
+              <span>Method</span>
+              <div class="benchmark-chart__scale">
+                <span>0</span>
+                <span>25</span>
+                <span>50</span>
+                <span>75</span>
+                <span>100</span>
+              </div>
+              <span>Avg. frames</span>
             </div>
-  
-          </div>
-        </div>
-      </div>
-  </section> -->
 
+            <div class="benchmark-chart__rows">
+              <div class="benchmark-row">
+                <div class="benchmark-method">BlindLLM</div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 34.8%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="34.8">
+                      <span>34.8</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--open" style="--score: 29.4%;" role="meter" aria-label="Open Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="29.4">
+                      <span>29.4</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frame count: 0"><strong>0</strong><span>frame</span></div>
+              </div>
+
+              <div class="benchmark-row">
+                <div class="benchmark-method">Frame Captions</div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 24.1%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="24.1">
+                      <span>24.1</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--open" style="--score: 31.7%;" role="meter" aria-label="Open Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="31.7">
+                      <span>31.7</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frame count: 0"><strong>0</strong><span>frame</span></div>
+              </div>
+
+              <div class="benchmark-row">
+                <div class="benchmark-method">CG Captions<sup>*</sup></div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 36.5%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="36.5">
+                      <span>36.5</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track benchmark-track--missing" aria-label="Open Model score not reported">—</div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frame count: 0"><strong>0</strong><span>frame</span></div>
+              </div>
+
+              <div class="benchmark-row">
+                <div class="benchmark-method">SVM Captions<sup>*</sup></div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 38.9%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38.9">
+                      <span>38.9</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track benchmark-track--missing" aria-label="Open Model score not reported">—</div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frame count: 0"><strong>0</strong><span>frame</span></div>
+              </div>
+
+              <div class="benchmark-row">
+                <div class="benchmark-method">Multi-Frame</div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 49.1%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="49.1">
+                      <span>49.1</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--open" style="--score: 48.2%;" role="meter" aria-label="Open Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="48.2">
+                      <span>48.2</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frames: 3.0"><strong>3.0</strong><span>frames</span></div>
+              </div>
+
+              <div class="benchmark-row">
+                <div class="benchmark-method">3D-Mem</div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 54.6%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="54.6">
+                      <span>54.6</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--open" style="--score: 50.8%;" role="meter" aria-label="Open Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50.8">
+                      <span>50.8</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frames: 2.7"><strong>2.7</strong><span>frames</span></div>
+              </div>
+
+              <div class="benchmark-row benchmark-row--ours">
+                <div class="benchmark-method">SplatReasoner <span>(ours)</span></div>
+                <div class="benchmark-bars">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--closed" style="--score: 57.8%;" role="meter" aria-label="Closed Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="57.8">
+                      <span>57.8</span>
+                    </div>
+                  </div>
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--open" style="--score: 51.6%;" role="meter" aria-label="Open Model score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="51.6">
+                      <span>51.6</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="benchmark-frames" aria-label="Average frames: 2.6"><strong>2.6<sup>†</sup></strong><span>frames</span></div>
+              </div>
+
+              <div class="benchmark-row benchmark-row--human">
+                <div class="benchmark-method">Human</div>
+                <div class="benchmark-bars benchmark-bars--single">
+                  <div class="benchmark-track">
+                    <div class="benchmark-bar benchmark-bar--human" style="--score: 86.8%;" role="meter" aria-label="Human score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="86.8">
+                      <span>86.8</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="benchmark-frames benchmark-frames--full"><strong>Full</strong></div>
+              </div>
+            </div>
+          </figure>
+          <p>
+            Methods marked with <sup>*</sup> and the Human score are reported from OpenEQA, while all other results are reproduced.
+            We report OpenEQA results since the code is not publicly available.
+            Average frames denote the number of final views used to answer queries.
+            <sup>†</sup> indicates that while novel views are utilized for the VLM-as-Judge, the actual number of input frames fed into the VLMs remains consistent with the reported average frames.
+          </p>
         </div>
       </div>
     </div>
-    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">3D Visual Grounding</h2>
+        <div class="content has-text-justified">
+          <img src="images/scanrefer.jpg" alt="Qualitative 3D visual grounding results on ScanRefer">
+          <div class="grounding-results">
+            <div class="grounding-results__header">
+              <strong>ScanRefer</strong>
+              <span>Bars scaled per metric · Higher is better <span aria-hidden="true">↑</span></span>
+            </div>
+            <div class="grounding-results__scroll">
+              <table class="grounding-results__table" aria-label="ScanRefer 3D visual grounding results">
+                <thead>
+                  <tr>
+                    <th scope="col">Method</th>
+                    <th scope="col">3D mIoU <span aria-hidden="true">↑</span></th>
+                    <th scope="col">Acc@8 <span aria-hidden="true">↑</span></th>
+                    <th scope="col">Acc@10 <span aria-hidden="true">↑</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Dr. Splat <span>(category)</span></th>
+                    <td><div class="grounding-meter grounding-meter--miou" style="--fill: 72.8%;" aria-label="3D mIoU: 8.73"><span>8.73</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc8" style="--fill: 86.3%;" aria-label="Acc at 8: 34.53"><span>34.53</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc10" style="--fill: 81.5%;" aria-label="Acc at 10: 28.53"><span>28.53</span></div></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Dr. Splat <span>(sentence)</span></th>
+                    <td><div class="grounding-meter grounding-meter--miou" style="--fill: 78.7%;" aria-label="3D mIoU: 9.44"><span>9.44</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc8" style="--fill: 85.7%;" aria-label="Acc at 8: 34.28"><span>34.28</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc10" style="--fill: 83.9%;" aria-label="Acc at 10: 29.35"><span>29.35</span></div></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">ReferSplat</th>
+                    <td><div class="grounding-meter grounding-meter--miou" style="--fill: 26.2%;" aria-label="3D mIoU: 3.14"><span>3.14</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc8" style="--fill: 26.7%;" aria-label="Acc at 8: 10.68"><span>10.68</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc10" style="--fill: 20.9%;" aria-label="Acc at 10: 7.32"><span>7.32</span></div></td>
+                  </tr>
+                  <tr class="grounding-results__ours">
+                    <th scope="row">SplatReasoner <span class="grounding-results__badge">ours</span></th>
+                    <td><div class="grounding-meter grounding-meter--miou" style="--fill: 92.7%;" aria-label="3D mIoU: 11.12"><span>11.12</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc8" style="--fill: 89.6%;" aria-label="Acc at 8: 35.84"><span>35.84</span></div></td>
+                    <td><div class="grounding-meter grounding-meter--acc10" style="--fill: 93.6%;" aria-label="Acc at 10: 32.75"><span>32.75</span></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p>
+          Acc@k denotes the percentage of predictions whose IoU with the ground truth exceeds k%.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -346,44 +545,27 @@
 </section>
 
 
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <h2 class="title is-3">Acknowledgement</h2>
-          <!-- <p>
-            We thank the members of AMILab and NVIDIA collaboraters.
-          </p> -->
-
-            <p>
-            We thank the members of AMI Lab and NVIDIA Research Taiwan for their helpful discussions and proofreading.
-            </p>
-            <p>
-            This work was supported by Institute of Information & Communications Technology Planning & Evaluation (IITP) grant funded by the Korea government (MSIT) 
-            (No. RS-2020-II200004, Development of Previsional Intelligence based on Long-term Visual Memory Network (25%), No. RS-2026-25518317, 
-            Development of AI memory mechanism that reflects human cognitive principles (25%), No.RS-2019-II191906, 
-            Artificial Intelligence Graduate School Program(POSTECH) (25%)), 
-            the National Research Foundation of Korea(NRF) grant funded by the Korea government(MSIT) (No. RS-2024-00453301 (25%)) 
-            and the InnoCORE program of the Ministry of Science and ICT(N10250156).
-            </p>
-            <p>
-            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to the <a href="https://github.com/nerfies/nerfies.github.io">original page</a> in the footer.
-            </p>
-        </div>
-      </div>
-    </div>
+<footer class="footer site-footer">
+  <div class="content site-footer__content">
+    <h2 class="title">Acknowledgements</h2>
+    <p class="site-footer__thanks">
+      We thank the members of AMI Lab and NVIDIA Research Taiwan for their helpful discussions and proofreading.
+      We would also like to thank <a href="https://yyuncong.github.io/">Yuncong Yang</a> for helping with the 3D-Mem reproduction.
+    </p>
+    <p class="site-footer__details">
+      This work was supported by the Institute of Information &amp; Communications Technology Planning &amp; Evaluation (IITP) grant funded by the Korea government (MSIT)
+      (No. RS-2020-II200004, Development of Previsional Intelligence based on Long-term Visual Memory Network (25%), No. RS-2026-25518317,
+      Development of AI memory mechanism that reflects human cognitive principles (25%), No. RS-2019-II191906,
+      Artificial Intelligence Graduate School Program (POSTECH) (25%)),
+      the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (No. RS-2024-00453301 (25%))
+      and the InnoCORE program of the Ministry of Science and ICT (N10250156).
+    </p>
+    <p class="site-footer__details">
+      This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+      This means you are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website;
+      we just ask that you link back to the <a href="https://github.com/nerfies/nerfies.github.io">original page</a> in the footer.
+    </p>
   </div>
 </footer>
 
