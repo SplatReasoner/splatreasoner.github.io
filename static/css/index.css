@@ -351,22 +351,12 @@ body {
   align-items: center;
   padding: 0.65rem 0.7rem;
   border-radius: 12px;
-  transition: background-color 160ms ease, transform 160ms ease;
-}
-
-.benchmark-row:hover {
-  background: #f7f9fc;
-  transform: translateY(-1px);
 }
 
 .benchmark-row--ours {
   background: linear-gradient(90deg, #d9e9ff, #edf5ff);
   border: 2px solid #5f98e8;
   box-shadow: 0 8px 22px rgba(38, 100, 181, 0.16);
-}
-
-.benchmark-row--ours:hover {
-  background: linear-gradient(90deg, #cfe3ff, #e7f2ff);
 }
 
 .benchmark-row--human {
@@ -719,11 +709,12 @@ body {
 .grounding-results__badge {
   display: inline-block;
   margin-left: 0.25rem;
-  padding: 0.1rem 0.38rem;
+  padding: 0.12rem 0.42rem;
   color: #ffffff;
   font-size: 0.78rem;
   font-weight: 800;
-  background: #2868c7;
+  letter-spacing: 0;
+  background: #5f8fd6;
   border-radius: 999px;
 }
 
