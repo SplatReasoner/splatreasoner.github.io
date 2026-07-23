@@ -262,6 +262,11 @@ body {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1.25rem;
+  font-style: normal;
+}
+
+.content figure.benchmark-chart figcaption.benchmark-chart__topbar {
+  font-style: normal;
 }
 
 .benchmark-chart__title {
