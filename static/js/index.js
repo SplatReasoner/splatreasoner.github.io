@@ -29,6 +29,31 @@ $(document).ready(function() {
 
     });
 
+    // Download all videos of a comparison grid before starting them together, because browser
+    // preloading cannot be relied on to finish (e.g. Chrome only preloads metadata on cellular).
+    // Grids load one after another so the first one is ready as early as possible.
+    var previousGrid = Promise.resolve();
+    $('.grounding-videos').each(function() {
+      var videos = $(this).find('video').get();
+      previousGrid = previousGrid.then(function() {
+        return Promise.all(videos.map(function(video) {
+          return fetch(video.querySelector('source').src)
+            .then(function(response) { return response.ok ? response.blob() : Promise.reject(); })
+            .then(function(blob) {
+              return new Promise(function(resolve) {
+                video.addEventListener('loadeddata', resolve, { once: true });
+                setTimeout(resolve, 1000);
+                video.src = URL.createObjectURL(blob);
+              });
+            })
+            // Fall back to normal streaming, e.g. when the page is opened from file://
+            .catch(function() {});
+        })).then(function() {
+          videos.forEach(function(video) { video.play(); });
+        });
+      });
+    });
+
     var options = {
 			slidesToScroll: 1,
 			slidesToShow: 3,
